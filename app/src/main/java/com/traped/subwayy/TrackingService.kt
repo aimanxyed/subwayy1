@@ -6,11 +6,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Build
-import android.os.Bundle
 import android.os.IBinder
 import android.os.Looper
 import android.util.Log
@@ -47,18 +43,10 @@ class TrackingService : Service() {
         super.onCreate()
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-       locationRequest =
-               LocationRequest().setInterval(LOCATION_INTERVAL_IN_MILLISECONDS)
-                       .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+        locationRequest =
+                LocationRequest().setInterval(LOCATION_INTERVAL_IN_MILLISECONDS)
+                        .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
         startLocationUpdates()
-        // Acquire a reference to the system Location Manager
-       // val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
-        // Define a listener that responds to location updates
-     //   val location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-       // Log.d("LOcation", "Current Location triggered")
-
-      //  startLocationUpdates()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -77,6 +65,11 @@ class TrackingService : Service() {
     }
 
     private fun startLocationUpdates() {
+        fusedLocationClient.lastLocation.addOnCompleteListener {
+            it.result?.let {
+                TrackingData.locationCallback.invoke(LatLng(it.latitude, it.longitude))
+            }
+        }
         fusedLocationClient.requestLocationUpdates(
                 locationRequest,
                 locationCallback,

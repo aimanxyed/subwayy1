@@ -1,21 +1,19 @@
 package com.traped.subwayy
 
 import android.Manifest
-import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.fragment.app.FragmentActivity
-
 import android.os.Bundle
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-
+import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsActivity : FragmentActivity(), OnMapReadyCallback {
@@ -24,6 +22,8 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
     private val foregroundServiceIntent by lazy {
         Intent(this, TrackingService::class.java)
     }
+
+    private lateinit var marker: Marker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,13 +76,15 @@ class MapsActivity : FragmentActivity(), OnMapReadyCallback {
 
         // Add a marker in Sydney and move the camera
         val sydney = LatLng(-34.0, 151.0)
-        mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        marker = mMap!!.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap!!.moveCamera(CameraUpdateFactory.newLatLng(sydney))
 
         TrackingData.locationCallback = {
             Log.d("Maps Activity", "Yeah we did it!")
-            mMap!!.addMarker(MarkerOptions().position(sydney).title("Here I am"))
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(sydney))
+            marker.remove()
+            marker = mMap!!.addMarker(MarkerOptions().position(it).title("Here I am"))
+            marker.showInfoWindow()
+            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(it, 20f))
         }
     }
 
