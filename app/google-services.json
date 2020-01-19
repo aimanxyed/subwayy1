@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "518738377676",
+    "firebase_url": "https://subwayy-2799f.firebaseio.com",
+    "project_id": "subwayy-2799f",
+    "storage_bucket": "subwayy-2799f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518738377676:android:88998826537d804c8f7b69",
+        "android_client_info": {
+          "package_name": "com.traped.subwayy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518738377676-v2kvhjovtqmc4kh7q14bam7t5na6sdet.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.traped.subwayy",
+            "certificate_hash": "2d4762741534a4cdf8742020c2475bbf78f72cf6"
+          }
+        },
+        {
+          "client_id": "518738377676-tusf8mjr9d287791gt6l05frpubh2u4j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB11S3EhUGMznO1UkY75eNvIXkpbogztRA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518738377676-tusf8mjr9d287791gt6l05frpubh2u4j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
